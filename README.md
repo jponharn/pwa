@@ -1,6 +1,5 @@
 # \<OccasionDee\>
 
-แอพพลิเคชั่นสำหรับดูฤกษ์งามยามดี
 
 ## Install the Polymer-CLI
 
