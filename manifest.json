@@ -1,0 +1,7 @@
+{
+  "name": "OccasionDee",
+  "short_name": "ฤกษ์ดี",
+  "description": "แอพพลิเคชั่นสำหรับดูฤกษ์งามยามดี",
+  "start_url": "/",
+  "display": "standalone"
+}
