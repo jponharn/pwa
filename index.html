@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="icon" href="images/favicon.ico">
 
     <title>OccasionDee</title>
     <meta name="description" content="แอพพลิเคชั่นสำหรับดูฤกษ์งามยามดี">
@@ -11,8 +14,19 @@
     <link rel="manifest" href="/manifest.json">
 
     <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <script>
+      // Register service worker if supported.
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js');
+      }
+    </script>
 
-    <link rel="import" href="/src/occasion-dee-app/occasion-dee-app.html">
+    <link rel="import" href="/src/occasion-dee-app.html">
+    <style>
+      body {
+        font-family: 'Prompt', sans-serif;
+      }
+      </style>
   </head>
   <body>
     <occasion-dee-app></occasion-dee-app>

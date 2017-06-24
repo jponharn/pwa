@@ -1,4 +1,25 @@
 {
+  "entrypoint": "index.html",
+  "builds": [{
+    "name": "bundled",
+    "bundle": true,
+    "addServiceWorker": true,
+    "swPrecacheConfig": "sw-precache-config.js",
+    "js": {"minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  },{
+    "name": "unbundled",
+    "addServiceWorker": true,
+    "swPrecacheConfig": "sw-precache-config.js",
+    "js": {"minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  }],
+  "sources": [
+    "images/**/*",
+    "manifest.json"
+  ],
   "lint": {
     "rules": [
       "polymer-2"
