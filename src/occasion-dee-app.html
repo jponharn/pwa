@@ -13,6 +13,8 @@
 <link rel="import" href="my-icons.html">
 
 <script src="/bower_components/moment/min/moment-with-locales.min.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" charset="utf-8"></script>
+
 
 <link rel="lazy-import" href="my-view1.html">
 <link rel="lazy-import" href="my-view2.html">
@@ -71,11 +73,11 @@
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer">
-        <app-toolbar>My App</app-toolbar>
+        <app-toolbar>ฤกษ์ดี</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="view1">ฤกษ์ดีตัดผม</a>
           <a name="view2" href="view2">ฤกษ์ดีตัดเล็บ</a>
-          <a name="view3" href="view3">ฤกษ์ดีนุ่งผ้าใหม่</a>
+          <!--<a name="view3" href="view3">ฤกษ์ดีนุ่งผ้าใหม่</a>-->
         </iron-selector>
       </app-drawer>
 

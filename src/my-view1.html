@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view1">
@@ -69,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <iron-localstorage name="od-storage"
+    <iron-localstorage name="od1-storage"
       value="{{data}}"
       on-iron-localstorage-load-empty="initODData"
     ></iron-localstorage>
@@ -81,31 +80,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>[[_date]]</span>
           </div>
         </div>
-        <p>[[desc_today.desc]]</p>
-        <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting with 12 indoor seats plus patio seating.</p>
+        <p>คำแนะนำ : [[desc_today.desc]]</p>
+        
       </div>
-      <div class="card-actions">
-        <p>Tonight's availability</p>
-        <div class="horizontal justified">
-          <paper-icon-button icon="icons:event"></paper-icon-button>
-          <paper-button>5:30PM</paper-button>
-          <paper-button>7:30PM</paper-button>
-          <paper-button>9:00PM</paper-button>
+    </paper-card>
+    <template is="dom-repeat" items="{{datas}}">
+      <paper-card class="rate">
+        <div class="card-content">
+          <div class="rate-header">วัน[[item.day]]</div>
+          <div class="rate-name">[[item.desc]]</div>
         </div>
-        <paper-button class="cafe-reserve">Reserve</paper-button>
-      </div>
-    </paper-card>
-    <paper-card class="rate">
-      <div class="card-content">
-        <div class="rate-header">Rate this album</div>
-        <div class="rate-name">Mac Miller</div>
-        <div>Live from space</div>
-      </div>
-      <div class="card-actions">
-        <div>Live from space</div>
-      </div>
-      <div class="rate-image"></div>
-    </paper-card>
+      </paper-card>
+    </template>
   </template>
 
   <script>
@@ -120,6 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Object,
             observer: '_odLoaded',
           },
+          datas: Array,
           today: Date,
           day: String,
           _date: String,
@@ -130,14 +117,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       initODData() {
         this.data = {
-          1: {day:"จันทร์", desc: "ผู้ใดตัดเล็บในวันนี้ นับเป็นเรื่องดีจะได้ลาภใหญ่ เกิดขึ้นกับตนเอง"}, 
-          2: {day:"อังคาร", desc: "คนโบราณมักจะห้ามตัดเล็บในวันอังคาร (เพราะถือว่าเป็นวันดุ) ดังนั้นหากใครตัดเล็บในวันนี้จะทำให้หมดราศี และอาจต้องมี เรื่องให้เสียทรัพย์สินเงินทอง"}, 
-          3: {day:"วันพุธ", desc: "หากใครตัดเล็บในวันนี้จะเป็นมงคลแก่ตน ในด้านคุ้มครองปกป้องจากสิ่งชั่วร้าย สิ่งไม่ดีต่าง ๆ ไม่ให้มากล้ำกรายได้"}, 
-          4: {day:"พฤหัสบดี", desc: "โบราณว่าวันนี้เป็นวันครู ท่านห้ามตัดเล็บ ผู้ใดตัดเล็บในวันนี้ จะได้รับความเดือดร้อนมีเรื่องยุ่งยากเข้ามาเป็นอุปสรรค"},
-          5: {day:"ศุกร์", desc: "ผู้ตัดเล็บในวันนี้ ตำราว่าจะได้ลาภ มีมงคล อุดมสมบูรณ์"}, 
-          6: {day:"เสาร์", desc: "ใครก็ตามที่ตัดเล็บในวันนี้ จะส่งผลด้านสุขภาพ ล้มป่วยไม่สบาย เป็นโรคภัยต่าง ๆ"}, 
-          7: {day:"อาทิตย์", desc: "ท่านว่าจะทำให้มีโชคดี ได้โชคลาภอย่างนึกไม่ถึงและมีเรื่องดี ๆ มาถึงตนเอง"}, 
-          8: {day:"พระ", desc: "คนที่ตัดเล็บวันนี้ มักจะอายุสั้น ล้มป่วยไม่สบายง่าย และมีเรื่องเดือดร้อน มักเกิดอุบัติเหตุได้ง่าย ๆ"}
+          1: {day:"จันทร์", desc: "จะมีแต่โชคลาภ"}, 
+          2: {day:"อังคาร", desc: "จะมีเดชอำนาจ ผู้คนยำเกรง"}, 
+          3: {day:"วันพุธ", desc: "ไม่ดี ลาภต่าง ๆ จะหายหมดมีแต่ความทุกข์"}, 
+          4: {day:"พฤหัสบดี", desc: "เทวดาและสิ่งศักดิ์สิทธิ์รักษาคุ้มครอง เป็นสิริสวัสดิ์กับตัวท่าน"},
+          5: {day:"ศุกร์", desc: "จะมีเสน่ห์เป็นที่นิยมรักใคร่แก่คนทั้งปวง"}, 
+          6: {day:"เสาร์", desc: "ดียิ่งนัก คิดการทำสิ่งใดจะได้ดั่งสมประสงค์ จะเกิดมงคลและโชคลาภ"}, 
+          7: {day:"อาทิตย์", desc: "จะมีอายุยืน สุขภาพร่างกายแข็งแรงปราศโรคภัย"}, 
         };
       }
 
@@ -147,6 +133,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               relativeTime: {
                   past: "%s"
               }
+          });
+
+          this.datas = $.map(this.data, function(value, index) {
+              return [value];
           });
 
           this.today = moment();

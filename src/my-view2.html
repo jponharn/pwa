@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view2">
@@ -19,19 +21,134 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      .cafe-header { @apply --paper-font-headline; }
+        .cafe-light { color: var(--paper-grey-600); }
+        .cafe-location {
+          float: right;
+          font-size: 15px;
+          vertical-align: middle;
+        }
+        .cafe-reserve { color: var(--google-blue-500); }
+        iron-icon.star {
+          --iron-icon-width: 16px;
+          --iron-icon-height: 16px;
+          color: var(--paper-amber-500);
+        }
+        iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+
+      paper-card{
+        --paper-card: {
+          width: 100%;
+        }
+
+        --paper-card-header: {
+          max-height: 300px;
+        }
+        
+      }
+
+      .rate-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100px;
+        background-color: red;
+        background-size: cover;
+      }
+      .rate-header { 
+        font-size: 24px;
+        font-weight: 400;
+      }
+      .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+      paper-icon-button.rate-icon {
+        --iron-icon-fill-color: white;
+        --iron-icon-stroke-color: var(--paper-grey-600);
+      }
     </style>
 
-    <div class="card">
-      <div class="circle">2</div>
-      <h1>View Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
-    </div>
+    <iron-localstorage name="od2-storage"
+      value="{{data}}"
+      on-iron-localstorage-load-empty="initODData"
+    ></iron-localstorage>
+    <paper-card image="/images/bg.jpg" alt="background">
+      <div class="card-content">
+        <div class="cafe-header">วันนี้ วัน[[day]]
+          <div class="cafe-location cafe-light">
+            <iron-icon icon="communication:location-on"></iron-icon>
+            <span>[[_date]]</span>
+          </div>
+        </div>
+        <p>คำแนะนำ : [[desc_today.desc]]</p>
+        
+      </div>
+    </paper-card>
+    <template is="dom-repeat" items="{{datas}}">
+      <paper-card class="rate">
+        <div class="card-content">
+          <div class="rate-header">วัน[[item.day]]</div>
+          <div class="rate-name">[[item.desc]]</div>
+        </div>
+      </paper-card>
+    </template>
   </template>
 
   <script>
     class MyView2 extends Polymer.Element {
       static get is() { return 'my-view2'; }
+      static get properties() {
+        return {
+          title: {
+            type: String
+          },
+          data: {
+            type: Object,
+            observer: '_odLoaded',
+          },
+          datas: Array,
+          today: Date,
+          day: String,
+          _date: String,
+          no_day: Number,
+          desc_today: Object
+        };
+      }
+
+      initODData() {
+        this.data = {
+          1: {day:"จันทร์", desc: "ผู้ใดตัดเล็บในวันนี้ นับเป็นเรื่องดีจะได้ลาภใหญ่ เกิดขึ้นกับตนเอง"}, 
+          2: {day:"อังคาร", desc: "คนโบราณมักจะห้ามตัดเล็บในวันอังคาร (เพราะถือว่าเป็นวันดุ) ดังนั้นหากใครตัดเล็บในวันนี้จะทำให้หมดราศี และอาจต้องมี เรื่องให้เสียทรัพย์สินเงินทอง"}, 
+          3: {day:"วันพุธ", desc: "หากใครตัดเล็บในวันนี้จะเป็นมงคลแก่ตน ในด้านคุ้มครองปกป้องจากสิ่งชั่วร้าย สิ่งไม่ดีต่าง ๆ ไม่ให้มากล้ำกรายได้"}, 
+          4: {day:"พฤหัสบดี", desc: "โบราณว่าวันนี้เป็นวันครู ท่านห้ามตัดเล็บ ผู้ใดตัดเล็บในวันนี้ จะได้รับความเดือดร้อนมีเรื่องยุ่งยากเข้ามาเป็นอุปสรรค"},
+          5: {day:"ศุกร์", desc: "ผู้ตัดเล็บในวันนี้ ตำราว่าจะได้ลาภ มีมงคล อุดมสมบูรณ์"}, 
+          6: {day:"เสาร์", desc: "ใครก็ตามที่ตัดเล็บในวันนี้ จะส่งผลด้านสุขภาพ ล้มป่วยไม่สบาย เป็นโรคภัยต่าง ๆ"}, 
+          7: {day:"อาทิตย์", desc: "ท่านว่าจะทำให้มีโชคดี ได้โชคลาภอย่างนึกไม่ถึงและมีเรื่องดี ๆ มาถึงตนเอง"}, 
+          8: {day:"พระ", desc: "คนที่ตัดเล็บวันนี้ มักจะอายุสั้น ล้มป่วยไม่สบายง่าย และมีเรื่องเดือดร้อน มักเกิดอุบัติเหตุได้ง่าย ๆ"}
+        };
+      }
+
+      _odLoaded(data) {
+        if(data){
+          moment.updateLocale('th', {
+              relativeTime: {
+                  past: "%s"
+              }
+          });
+
+          this.datas = $.map(this.data, function(value, index) {
+              return [value];
+          });
+
+          this.today = moment();
+          this.day = this.today.format('dddd');
+          this._date = this.today.format('YYYY-MM-DD');
+          this.no_day = this.today.format('E');
+          this.desc_today = data[this.no_day];
+
+        }
+      }
+      
     }
 
     window.customElements.define(MyView2.is, MyView2);
