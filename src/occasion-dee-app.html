@@ -12,6 +12,8 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
 
+<script src="/bower_components/moment/min/moment-with-locales.min.js" charset="utf-8"></script>
+
 <link rel="lazy-import" href="my-view1.html">
 <link rel="lazy-import" href="my-view2.html">
 <link rel="lazy-import" href="my-view3.html">
@@ -71,8 +73,8 @@
       <app-drawer id="drawer" slot="drawer">
         <app-toolbar>My App</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="view1">ยามอุบากอง</a>
-          <a name="view2" href="view2">ฤกษ์ดีตัดผม</a>
+          <a name="view1" href="view1">ฤกษ์ดีตัดผม</a>
+          <a name="view2" href="view2">ฤกษ์ดีตัดเล็บ</a>
           <a name="view3" href="view3">ฤกษ์ดีนุ่งผ้าใหม่</a>
         </iron-selector>
       </app-drawer>
@@ -80,7 +82,7 @@
       <!-- Main content -->
       <app-header-layout has-scrolling-region>
 
-        <app-header slot="header" condenses reveals >
+        <app-header slot="header" reveals >
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>[[title]]</div>
@@ -92,8 +94,8 @@
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1" title="ยามอุบากอง"></my-view1>
-          <my-view2 name="view2" title="ฤกษ์ตัดผม"></my-view2>
+          <my-view1 name="view1" title="ฤกษ์ตัดผม"></my-view1>
+          <my-view2 name="view2" title="ฤกษ์ตัดเล็บ"></my-view2>
           <my-view3 name="view3" title="ฤกษ์นุ่งผ้าใหม่"></my-view3>
           <my-view404 name="view404" title="Error 404"></my-view404>
         </iron-pages>
